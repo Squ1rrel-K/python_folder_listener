@@ -1,17 +1,20 @@
 import time
+import sys
 from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
 from openpyxl import load_workbook
-from openpyxl.utils import get_column_letter
 
 
 class SubFileHandler(FileSystemEventHandler):
+    """
+    Those two variables will be replaced by user input
+    """
     path_excel = 'F:/Code/test_folder_listener/test.xlsx'
     sheet_name = 'Sheet1'
 
     def on_created(self, event):
         print(event.event_type)
-        work_on_excel(self.path_excel, self.sheet_name, event.event_type)
+        work_on_excel(self.path_excel, self.sheet_name, event)
 
     '''
     def on_modified(self, event):
@@ -21,19 +24,19 @@ class SubFileHandler(FileSystemEventHandler):
 
     def on_deleted(self, event):
         print(event.event_type)
-        work_on_excel(self.path_excel, self.sheet_name, event.event_type)
+        work_on_excel(self.path_excel, self.sheet_name, event)
 
 
-def work_on_excel(path_excel, sheet_name, method):
+def work_on_excel(path_excel, sheet_name, event):
     try:
         wb = load_workbook(path_excel)
         try:
             ws = wb[sheet_name]
 
-            if method == 'created':
-                video_created(ws)
+            if event.event_type == 'created':
+                video_created(ws, event)
 
-            elif method == 'deleted':
+            elif event.event_type == 'deleted':
                 video_deleted(ws)
 
             wb.save(path_excel)
@@ -45,10 +48,12 @@ def work_on_excel(path_excel, sheet_name, method):
         print('无法打开该 Excel 路径: ' + path_excel)
 
 
-def video_created(work_sheet):
+def video_created(work_sheet, event):
     ws = work_sheet
-    column_letter = get_column_letter(ws.max_row)
-    ws[column_letter + '1'] = column_letter
+    current_row = ws.max_row + 1
+    relative_path = event.src_path.split('\\')[1]
+    ws.cell(column=1, row=current_row, value="{0}".format(relative_path)).hyperlink = event.src_path
+    ws.cell(column=4, row=current_row, value="No")
 
 
 def video_modified(work_sheet):
