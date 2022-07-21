@@ -9,7 +9,7 @@ constantly and writes such information into an Excel file.
 2. Download libraries: watchdog, openpyxl
 3. Custom your own [excel_path], [folder_path_tem], [folder_path] values ( line 11, 12 , 13 )
 4. Open python_folder_listener in IDE or run "py main.py" in console
-5. As python_folder_listener is opened, file created and deleted events will be detected automatically, which modify the
+5. As python_folder_listener is opened, file created and deleted events will be detected automatically, which modifies the
    Excel file
 
 ## Modify for private use
