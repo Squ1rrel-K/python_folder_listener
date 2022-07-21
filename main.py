@@ -10,8 +10,9 @@ class SubFileHandler(FileSystemEventHandler):
     """
     excel_path = 'C:/Users/squ1rrel/Desktop/test/test.xlsx'
     folder_path_tem = 'C:/Users/squ1rrel/Desktop/test/tarkov_tem'
-    folder_name_tem = folder_path_tem.split('\\')[-1]
     folder_path = 'C:/Users/squ1rrel/Desktop/test/tarkov'
+
+    folder_name_tem = folder_path_tem.split('\\')[-1]
     folder_name = folder_path.split('\\')[-1]
     sheet_name = 'Sheet1'
 
@@ -48,7 +49,6 @@ def work_on_excel_by_video_created(work_sheet, event, folder_name_tem, folder_na
     file_name = event.src_path.split('\\')[-1]
     try:
         work_sheet.cell(column=1, row=current_row, value="{0}".format(file_name)).hyperlink = event.src_path
-        work_sheet.cell(column=4, row=current_row, value="No")
         print('Successful write: ' + '[' + file_name + ']' + ' From: ' + folder_name_tem + ' To ' + folder_name)
 
     except IOError as msg:
