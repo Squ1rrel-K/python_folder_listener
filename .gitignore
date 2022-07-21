@@ -4,3 +4,4 @@ build/
 dist/
 .gitignore.swp
 main.spec
+__pycache__/
