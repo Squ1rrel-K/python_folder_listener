@@ -30,10 +30,10 @@ def work_on_excel(excel_path, sheet_name, event, folder_tem_name, folder_name):
             ws = wb[sheet_name]
 
             if event.event_type == 'created':
-                work_on_excel_by_video_created(ws, event, folder_tem_name, folder_name)
+                work_on_excel_by_event_created(ws, event, folder_tem_name, folder_name)
 
             elif event.event_type == 'deleted':
-                work_on_excel_by_video_deleted(ws, event, folder_name)
+                work_on_excel_by_event_deleted(ws, event, folder_name)
 
             wb.save(excel_path)
 
@@ -44,7 +44,7 @@ def work_on_excel(excel_path, sheet_name, event, folder_tem_name, folder_name):
         print(msg)
 
 
-def work_on_excel_by_video_created(work_sheet, event, folder_name_tem, folder_name):
+def work_on_excel_by_event_created(work_sheet, event, folder_name_tem, folder_name):
     current_row = work_sheet.max_row + 1
     file_name = event.src_path.split('\\')[-1]
     try:
@@ -55,7 +55,7 @@ def work_on_excel_by_video_created(work_sheet, event, folder_name_tem, folder_na
         print(msg)
 
 
-def work_on_excel_by_video_deleted(work_sheet, event, folder_name):
+def work_on_excel_by_event_deleted(work_sheet, event, folder_name):
     try:
         file_name = event.src_path.split('\\')[-1]
 
