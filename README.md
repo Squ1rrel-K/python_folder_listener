@@ -20,5 +20,5 @@ Custom method work_on_excel_by_event_created()
 
 Log system
 </br>
-better input by IO console 
+Better input by IO console 
 
