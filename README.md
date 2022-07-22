@@ -1,6 +1,6 @@
 ## About python_folder_listener
 
-python_folder_listener is a folder listener writen by python, which monitors file movement event in one specific folder
+python_folder_listener is a folder listener writen by python, which monitors file movement events in one specific folder
 constantly and writes such information into an Excel file.
 
 ## How to use
