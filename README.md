@@ -15,3 +15,9 @@ constantly and writes such information into an Excel file.
 ## Modify for private use
 
 Custom method work_on_excel_by_event_created() 
+
+## Future plan 
+
+Log system
+better input by IO console 
+

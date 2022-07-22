@@ -8,9 +8,9 @@ class SubFileHandler(FileSystemEventHandler):
     """
     Those variables will be replaced by user input
     """
-    excel_path = 'C:/Users/squ1rrel/Desktop/test/test.xlsx'
+    excel_path = 'D:/素材/视频/塔科夫/12.13.xlsx'
     folder_path_tem = 'C:/Users/squ1rrel/Desktop/test/tarkov_tem'
-    folder_path = 'C:/Users/squ1rrel/Desktop/test/tarkov'
+    folder_path = 'D:/素材/视频/塔科夫/12.13'
 
     folder_name_tem = folder_path_tem.split('\\')[-1]
     folder_name = folder_path.split('\\')[-1]
@@ -49,6 +49,7 @@ def work_on_excel_by_event_created(work_sheet, event, folder_name_tem, folder_na
     file_name = event.src_path.split('\\')[-1]
     try:
         work_sheet.cell(column=1, row=current_row, value="{0}".format(file_name)).hyperlink = event.src_path
+        work_sheet.cell(column=4, row=current_row, value="No")
         print('Successful write: ' + '[' + file_name + ']' + ' From: ' + folder_name_tem + ' To ' + folder_name)
 
     except IOError as msg:
