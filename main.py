@@ -47,6 +47,7 @@ def work_on_excel_by_event_created(self, ws, event):
     current_row = ws.max_row + 1
     file_name = event.src_path.split('\\')[-1]
     try:
+        # Modify these codes for private use.
         ws.cell(column=1, row=current_row, value="{0}".format(file_name)).hyperlink = event.src_path
         ws.cell(column=4, row=current_row, value="No")
         print('Successfully write: ' + '[' + file_name + ']'
