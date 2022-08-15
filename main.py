@@ -1,4 +1,5 @@
 import time
+import json
 from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
 from openpyxl import load_workbook
@@ -8,18 +9,39 @@ class SubFileHandler(FileSystemEventHandler):
     """
     Those variables will be replaced by user input
     """
-    excel_path = 'D:/素材/视频/塔科夫/12.13.xlsx'
-    folder_path_tem = 'C:/Users/squ1rrel/Desktop/test/tarkov_tem'
-    folder_path = 'D:/素材/视频/塔科夫/12.13'
-    folder_name_tem = folder_path_tem.split('\\')[-1]
-    folder_name = folder_path.split('\\')[-1]
-    sheet_name = 'Sheet1'
+    excel_path = None
+    folder_path_tem = None
+    folder_path = None
+    folder_name_tem = None
+    folder_name = None
+    sheet_name = None
+
+    def __init__(self):
+        get_config(self)
 
     def on_created(self, event):
         work_on_excel(self, event)
 
     def on_deleted(self, event):
         work_on_excel(self, event)
+
+
+def get_config(self, config_path="./config.json"):
+    try:
+        f = open(config_path, mode='r', encoding='utf-8')
+
+        config = json.loads(f.read())
+        self.excel_path = config['excel_path']
+        self.folder_path_tem = config['folder_path_tem']
+        self.folder_path = config['folder_path']
+        self.sheet_name = config['sheet_name']
+        self.folder_name_tem = self.folder_path_tem.split('\\')[-1]
+        self.folder_name = self.folder_path.split('\\')[-1]
+
+        f.close()
+
+    except IOError as msg:
+        print(msg)
 
 
 def work_on_excel(self, event):
@@ -81,6 +103,13 @@ def work_on_excel_by_event_deleted(self, ws, event):
         print(msg)
 
 
+def check_people_with_zero_material(self):
+    wb = load_workbook(self.excel_path)
+    ws = wb[self.sheet_name]
+
+    flag = True
+
+
 if __name__ == "__main__":
     print('Welcome to Python_folder_listener!')
     observer = Observer()
@@ -92,7 +121,7 @@ if __name__ == "__main__":
             time.sleep(1)
 
     except KeyboardInterrupt:
-        print("Close!")
+        print("Closed!")
 
     finally:
         observer.stop()
