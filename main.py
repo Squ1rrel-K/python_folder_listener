@@ -39,7 +39,9 @@ def get_config(self, config_path="./config_tarkov.json"):
         f.close()
 
         # Print last uploaded file.
-        logging.info('Last file uploaded was' + ' [' + config['last_file'] + "]")
+        logging.info(
+            'Last file uploaded was:\n' + '[' + config['last_file'] + "] " + config[
+                'last_uploaded_file_time'])
 
     except IOError as msg:
         logging.error(msg)
@@ -83,6 +85,7 @@ def work_on_excel_by_event_created(self, ws, event, config_path="./config_tarkov
         # Rewrite config to update last file uploaded.
         f = open(config_path, mode='w', encoding='utf-8')
         config['last_file'] = file_name
+        config['last_uploaded_file_time'] = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
         f.write(json.dumps(config, indent=2, ensure_ascii=False))
         f.close()
 
