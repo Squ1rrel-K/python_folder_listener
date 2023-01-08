@@ -8,9 +8,7 @@ from openpyxl import load_workbook
 
 class SubFileHandler(FileSystemEventHandler):
     excel_path = None
-    folder_path_tem = None
     folder_path = None
-    folder_name_tem = None
     folder_name = None
     sheet_name = None
 
@@ -31,10 +29,8 @@ def get_config(self, config_path="./config_tarkov.json"):
         f = open(config_path, mode='r', encoding='utf-8')
         config = json.loads(f.read())
         self.excel_path = config['excel_path']
-        self.folder_path_tem = config['folder_path_tem']
         self.folder_path = config['folder_path']
         self.sheet_name = config['sheet_name']
-        self.folder_name_tem = self.folder_path_tem.split('\\')[-1]
         self.folder_name = self.folder_path.split('\\')[-1]
         f.close()
 
@@ -90,7 +86,7 @@ def work_on_excel_by_event_created(self, ws, event, config_path="./config_tarkov
         f.close()
 
         logging.info('Successfully write: ' + '[' + file_name + ']'
-                     + ' From: ' + self.folder_name_tem + ' To ' + self.folder_name)
+                     + ' To ' + self.folder_name)
 
     except IOError as msg:
         logging.info(msg)
